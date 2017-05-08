@@ -26,9 +26,12 @@ import it.sephiroth.android.library.exif2.ExifTag;
 
 public class MainActivity extends AppCompatActivity {
 
+    // Request codes
     public static final int PERMISSIONS_MULTIPLE_REQUEST = 1;
     public static final int PICK_IMAGE = 2;
     public static final int IOExceptionCode = 3;
+
+    // Define Uri for image to be selected
     public static Uri imageUri;
 
     @Override
@@ -53,26 +56,32 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void selectFile() {
+        // Create new intent for getting image
         Intent getIntent = new Intent(Intent.ACTION_GET_CONTENT);
         getIntent.setType("image/*");
-
+        // Create intent for choosing how to complete
         Intent pickIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         pickIntent.setType("image/*");
-
+        // Create intent for choosing image
         Intent chooserIntent = Intent.createChooser(getIntent, "Select Image");
         chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, new Intent[] {pickIntent});
-
+        // Start intent
         startActivityForResult(chooserIntent, PICK_IMAGE);
     }
 
     public void removeEXIF(View view) {
         if(imageUri == null) {
+            // Ask to select image before removing EXIF
             Toast.makeText(this, "Please select an image", Toast.LENGTH_SHORT).show();
         } else {
+            // Tell the user EXIF removal and compression has started
             Toast.makeText(this, "Removing and compressing..", Toast.LENGTH_SHORT).show();
+            // Generate filepath from URI of image
             String filepath = getRealPathFromURIPath(imageUri, this);
+            // Create FileOutputStream
             FileOutputStream out;
             try {
+                // DANGER ZONE: Currently in development, not working.. may be removed..
                 ExifInterface exif = new ExifInterface();
                 android.media.ExifInterface exifinterface = new android.media.ExifInterface(filepath);
                 exif.readExif(filepath, ExifInterface.Options.OPTION_ALL);
@@ -80,6 +89,7 @@ public class MainActivity extends AppCompatActivity {
                 
                 Toast.makeText(this, "Done!", Toast.LENGTH_SHORT).show();
             } catch (IOException e) {
+                // Warn about error and give error code. See wiki for details.
                 Toast.makeText(this, "An error occurred. Code: " + IOExceptionCode, Toast.LENGTH_SHORT).show();
             }
         }
@@ -87,10 +97,14 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // Execute code on intent result
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK && requestCode == PICK_IMAGE) {
+            // Get URI from image selected
             imageUri = data.getData();
+            // Initialize header TextView for editing
             TextView header = (TextView)findViewById(R.id.header);
+            // Change text when ready to remove EXIF
             header.setText("Ready to remove EXIF");
         }
     }
