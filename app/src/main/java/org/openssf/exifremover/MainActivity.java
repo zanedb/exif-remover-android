@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
             // Create FileOutputStream
             FileOutputStream out;
             try {
-                // DANGER ZONE: Currently in development, not working.. may be removed..
+                // DANGER ZONE: Currently in development, not currently working.. may be removed..
                 ExifInterface exif = new ExifInterface();
                 android.media.ExifInterface exifinterface = new android.media.ExifInterface(filepath);
                 exif.readExif(filepath, ExifInterface.Options.OPTION_ALL);
