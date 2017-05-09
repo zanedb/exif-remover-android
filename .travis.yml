@@ -1,6 +1,6 @@
 language: android
 
-before_script:
+before_installation:
   - chmod +x gradlew
 
 android:
