@@ -5,4 +5,12 @@ It will also be available on Google Play when released.
 
 # What is this?
 
-This is a project to remove harmful EXIF data (such as location tags) from your photos on Android. We will not be making an iOS version until we receive significant donations. You can [help out](https://www.openssf.org/donate).
+This is a project to remove harmful EXIF data (such as location tags) from your photos on Android. We will not be making an iOS version until we receive significant donations.
+
+# How you can help
+
+You can help out by [donating](https://www.openssf.org/donate) if you enjoy the app. You can also contribute to development here on GitHub.
+
+# iOS Version?
+
+We plan on creating an iOS version eventually. We may use [Flutter](https://flutter.io), or may develop it in Xcode. [Donating](https://www.openssf.org/donate) will speed up the process.
