@@ -1,11 +1,10 @@
 package org.openssf.exifremover;
 
+// Main android imports
 import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
@@ -15,14 +14,19 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+// Java imports
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.List;
 
+// ExifInterface - used to write/read tags
+import android.media.ExifInterface;
+
+// Easy Permissions - permissions manager
 import pub.devrel.easypermissions.EasyPermissions;
 
-import it.sephiroth.android.library.exif2.ExifInterface;
-import it.sephiroth.android.library.exif2.ExifTag;
+// Import ExifInterface EXIF tags
+import static android.media.ExifInterface.TAG_GPS_LATITUDE;
+import static android.media.ExifInterface.TAG_GPS_LONGITUDE;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -82,11 +86,10 @@ public class MainActivity extends AppCompatActivity {
             FileOutputStream out;
             try {
                 // DANGER ZONE: Currently in development, not currently working.. may be removed..
-                ExifInterface exif = new ExifInterface();
-                android.media.ExifInterface exifinterface = new android.media.ExifInterface(filepath);
-                exif.readExif(filepath, ExifInterface.Options.OPTION_ALL);
-                List<ExifTag> all_tags = exif.getAllTags();
-                
+
+                ExifInterface exif = new ExifInterface(filepath);
+                // CODE TO-BE-UPDATED
+
                 Toast.makeText(this, "Done!", Toast.LENGTH_SHORT).show();
             } catch (IOException e) {
                 // Warn about error and give error code. See wiki for details.
