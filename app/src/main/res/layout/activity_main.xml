@@ -34,7 +34,7 @@ tools:context="org.openssf.exifremover.MainActivity">
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/remove_exif"
-        android:onClick="removeEXIF"
+        android:onClick="buttonRemoveEXIF"
         android:layout_marginTop="16dp"/>
 
 </LinearLayout>

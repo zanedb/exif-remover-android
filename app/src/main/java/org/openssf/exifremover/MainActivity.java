@@ -5,28 +5,27 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
+import android.media.ExifInterface;
 import android.net.Uri;
+import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-// Java imports
+// Main Java imports
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-// ExifInterface - used to write/read tags
-import android.media.ExifInterface;
+//import it.sephiroth.android.library.exif2.ExifInterface;
 
-// Easy Permissions - permissions manager
+// Easy Permissions - simple android permissions manager by github/google-samples
 import pub.devrel.easypermissions.EasyPermissions;
 
-// Import ExifInterface EXIF tags
-import static android.media.ExifInterface.TAG_GPS_LATITUDE;
-import static android.media.ExifInterface.TAG_GPS_LONGITUDE;
+// Import ExifInterface from Sephiroth
 
 public class MainActivity extends AppCompatActivity {
 
@@ -73,28 +72,59 @@ public class MainActivity extends AppCompatActivity {
         startActivityForResult(chooserIntent, PICK_IMAGE);
     }
 
-    public void removeEXIF(View view) {
+    public void buttonRemoveEXIF(View view) {
         if(imageUri == null) {
             // Ask to select image before removing EXIF
             Toast.makeText(this, "Please select an image", Toast.LENGTH_SHORT).show();
         } else {
             // Tell the user EXIF removal and compression has started
-            Toast.makeText(this, "Removing and compressing..", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Removing..", Toast.LENGTH_SHORT).show();
             // Generate filepath from URI of image
             String filepath = getRealPathFromURIPath(imageUri, this);
-            // Create FileOutputStream
-            FileOutputStream out;
-            try {
-                // DANGER ZONE: Currently in development, not currently working.. may be removed..
+            if(filepath.endsWith("jpg")) {
+                // Create string for edited file path
+                String newfilepath = filepath;
 
-                ExifInterface exif = new ExifInterface(filepath);
-                // CODE TO-BE-UPDATED
+                // Create new file for renaming
+                File jpeg = new File(filepath);
 
-                Toast.makeText(this, "Done!", Toast.LENGTH_SHORT).show();
-            } catch (IOException e) {
-                // Warn about error and give error code. See wiki for details.
-                Toast.makeText(this, "An error occurred. Code: " + IOExceptionCode, Toast.LENGTH_SHORT).show();
+                // Remove JPG extension (for android EXIF manipulation)
+                newfilepath = newfilepath.substring(0, newfilepath.length() - 3);
+
+                // Replace with JPEG extension (for android EXIF manipulation)
+                newfilepath += "jpeg";
+
+                // Rename file from JPG to JPEG (required for ExifInterface EXIF manipulation, no image loss)
+                jpeg.renameTo(new File(newfilepath));
+
+                removeEXIF(newfilepath);
+            } else if(filepath.endsWith("jpeg")) {
+                removeEXIF(filepath);
+            } else {
+                Toast.makeText(this, "Only JPG/JPEG files are currently supported", Toast.LENGTH_SHORT).show();
             }
+        }
+    }
+
+    public void removeEXIF(String filepath) {
+        try {
+            // Create new ExifInterface for managing EXIF tags
+            ExifInterface exif = new ExifInterface(filepath);
+
+            // Set all dangerous EXIF tags to null
+            exif.setAttribute(ExifInterface.TAG_DATETIME, "");
+            exif.setAttribute(ExifInterface.TAG_DATETIME_DIGITIZED, "");
+            exif.setAttribute(ExifInterface.TAG_DATETIME_ORIGINAL, "");
+            exif.setAttribute(ExifInterface.TAG_GPS_LATITUDE, "");
+            exif.setAttribute(ExifInterface.TAG_GPS_LONGITUDE, "");
+
+            // Write edited attributes back to file
+            exif.saveAttributes();
+
+            Toast.makeText(this, "Done!", Toast.LENGTH_SHORT).show();
+        } catch (IOException e) {
+            // Warn about error and give error code. See wiki for complete error code list.
+            Toast.makeText(this, "IOException, [Code " + IOExceptionCode + "]", Toast.LENGTH_SHORT).show();
         }
     }
 
