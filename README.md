@@ -1,5 +1,7 @@
 # EXIF-Remover Android
 
+[![Build Status](https://travis-ci.org/openssf/exif-remover-android.svg?branch=master)](https://travis-ci.org/openssf/exif-remover-android)
+
 This project is IN DEVELOPMENT. NOT ALL FUNCTIONALITY IS WORKING. Please check [the releases page](https://github.com/openssf/exif-remover-android/releases) for the first release.
 It will also be available on Google Play when released.
 
