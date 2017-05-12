@@ -93,10 +93,13 @@ public class MainActivity extends AppCompatActivity {
                 File newjpeg = new File(newfilepath);
 
                 // Rename file from JPG to JPEG (required for ExifInterface EXIF manipulation, no image loss)
-                jpeg.renameTo(newjpeg);
+                boolean rename = jpeg.renameTo(newjpeg);
 
-                // Call function to remove EXIF data
-                removeEXIF(newfilepath);
+                // Check if file renaming was successful
+                if(rename) {
+                    // Call function to remove EXIF data
+                    removeEXIF(newfilepath);
+                }
             } else if(filepath.endsWith("jpeg")) {
                 removeEXIF(filepath);
             } else {
@@ -116,6 +119,40 @@ public class MainActivity extends AppCompatActivity {
             exif.setAttribute(ExifInterface.TAG_DATETIME_ORIGINAL, "");
             exif.setAttribute(ExifInterface.TAG_GPS_LATITUDE, "");
             exif.setAttribute(ExifInterface.TAG_GPS_LONGITUDE, "");
+            exif.setAttribute(ExifInterface.TAG_APERTURE_VALUE, "");
+            exif.setAttribute(ExifInterface.TAG_ARTIST, "");
+            exif.setAttribute(ExifInterface.TAG_COMPONENTS_CONFIGURATION, "");
+            exif.setAttribute(ExifInterface.TAG_COMPRESSION, "");
+            exif.setAttribute(ExifInterface.TAG_DEVICE_SETTING_DESCRIPTION, "");
+            exif.setAttribute(ExifInterface.TAG_EXPOSURE_BIAS_VALUE, "");
+            exif.setAttribute(ExifInterface.TAG_EXPOSURE_INDEX, "");
+            exif.setAttribute(ExifInterface.TAG_EXPOSURE_MODE, "");
+            exif.setAttribute(ExifInterface.TAG_EXPOSURE_PROGRAM, "");
+            exif.setAttribute(ExifInterface.TAG_EXPOSURE_TIME, "");
+            exif.setAttribute(ExifInterface.TAG_GPS_ALTITUDE, "");
+            exif.setAttribute(ExifInterface.TAG_GPS_AREA_INFORMATION, "");
+            exif.setAttribute(ExifInterface.TAG_GPS_ALTITUDE_REF, "");
+            exif.setAttribute(ExifInterface.TAG_GPS_DATESTAMP, "");
+            exif.setAttribute(ExifInterface.TAG_GPS_DEST_BEARING, "");
+            exif.setAttribute(ExifInterface.TAG_EXPOSURE_TIME, "");
+            exif.setAttribute(ExifInterface.TAG_GPS_DEST_BEARING_REF, "");
+            exif.setAttribute(ExifInterface.TAG_GPS_DEST_DISTANCE, "");
+            exif.setAttribute(ExifInterface.TAG_GPS_DEST_DISTANCE_REF, "");
+            exif.setAttribute(ExifInterface.TAG_GPS_DEST_LATITUDE, "");
+            exif.setAttribute(ExifInterface.TAG_GPS_DEST_LATITUDE_REF, "");
+            exif.setAttribute(ExifInterface.TAG_GPS_DIFFERENTIAL, "");
+            exif.setAttribute(ExifInterface.TAG_GPS_DOP, "");
+            exif.setAttribute(ExifInterface.TAG_GPS_VERSION_ID, "");
+            exif.setAttribute(ExifInterface.TAG_GPS_TRACK_REF, "");
+            exif.setAttribute(ExifInterface.TAG_GPS_TRACK, "");
+            exif.setAttribute(ExifInterface.TAG_GPS_TIMESTAMP, "");
+            exif.setAttribute(ExifInterface.TAG_GPS_STATUS, "");
+            exif.setAttribute(ExifInterface.TAG_GPS_SPEED_REF, "");
+            exif.setAttribute(ExifInterface.TAG_GPS_SPEED, "");
+            exif.setAttribute(ExifInterface.TAG_GPS_SATELLITES, "");
+            exif.setAttribute(ExifInterface.TAG_GPS_PROCESSING_METHOD, "");
+            exif.setAttribute(ExifInterface.TAG_GPS_MAP_DATUM, "");
+            exif.setAttribute(ExifInterface.TAG_GPS_IMG_DIRECTION_REF, "");
 
             // Write edited attributes back to file
             exif.saveAttributes();
