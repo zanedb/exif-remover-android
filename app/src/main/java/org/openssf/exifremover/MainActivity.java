@@ -17,15 +17,10 @@ import android.widget.Toast;
 
 // Main Java imports
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-
-//import it.sephiroth.android.library.exif2.ExifInterface;
 
 // Easy Permissions - simple android permissions manager by github/google-samples
 import pub.devrel.easypermissions.EasyPermissions;
-
-// Import ExifInterface from Sephiroth
 
 public class MainActivity extends AppCompatActivity {
 
@@ -94,9 +89,13 @@ public class MainActivity extends AppCompatActivity {
                 // Replace with JPEG extension (for android EXIF manipulation)
                 newfilepath += "jpeg";
 
-                // Rename file from JPG to JPEG (required for ExifInterface EXIF manipulation, no image loss)
-                jpeg.renameTo(new File(newfilepath));
+                // Add new file for renaming purposes
+                File newjpeg = new File(newfilepath);
 
+                // Rename file from JPG to JPEG (required for ExifInterface EXIF manipulation, no image loss)
+                jpeg.renameTo(newjpeg);
+
+                // Call function to remove EXIF data
                 removeEXIF(newfilepath);
             } else if(filepath.endsWith("jpeg")) {
                 removeEXIF(filepath);
@@ -121,6 +120,7 @@ public class MainActivity extends AppCompatActivity {
             // Write edited attributes back to file
             exif.saveAttributes();
 
+            // Tell user it's done
             Toast.makeText(this, "Done!", Toast.LENGTH_SHORT).show();
         } catch (IOException e) {
             // Warn about error and give error code. See wiki for complete error code list.
