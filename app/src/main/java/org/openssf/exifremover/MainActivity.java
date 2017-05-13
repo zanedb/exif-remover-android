@@ -134,7 +134,6 @@ public class MainActivity extends AppCompatActivity {
             exif.setAttribute(ExifInterface.TAG_GPS_ALTITUDE_REF, "");
             exif.setAttribute(ExifInterface.TAG_GPS_DATESTAMP, "");
             exif.setAttribute(ExifInterface.TAG_GPS_DEST_BEARING, "");
-            exif.setAttribute(ExifInterface.TAG_EXPOSURE_TIME, "");
             exif.setAttribute(ExifInterface.TAG_GPS_DEST_BEARING_REF, "");
             exif.setAttribute(ExifInterface.TAG_GPS_DEST_DISTANCE, "");
             exif.setAttribute(ExifInterface.TAG_GPS_DEST_DISTANCE_REF, "");
@@ -153,6 +152,8 @@ public class MainActivity extends AppCompatActivity {
             exif.setAttribute(ExifInterface.TAG_GPS_PROCESSING_METHOD, "");
             exif.setAttribute(ExifInterface.TAG_GPS_MAP_DATUM, "");
             exif.setAttribute(ExifInterface.TAG_GPS_IMG_DIRECTION_REF, "");
+            exif.setAttribute(ExifInterface.TAG_GPS_MEASURE_MODE, "");
+            exif.setAttribute(ExifInterface.TAG_SOFTWARE, "");
 
             // Write edited attributes back to file
             exif.saveAttributes();
