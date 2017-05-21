@@ -1,8 +1,5 @@
 language: android
-
-before_installation:
-  - chmod +x gradlew
-
+jdk: oraclejdk8
 android:
   components:
     # Uncomment the lines below if you want to
