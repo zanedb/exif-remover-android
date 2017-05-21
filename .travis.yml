@@ -1,10 +1,5 @@
 language: android
 jdk: oraclejdk8
-android {
-    lintOptions {
-      abortOnError false
-   }
-}
 android:
   components:
     # Uncomment the lines below if you want to
