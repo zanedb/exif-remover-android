@@ -36,11 +36,14 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // Startup code
         super.onCreate(savedInstanceState);
+        // Tell Android to set this activity as the starting layout
         setContentView(R.layout.activity_main);
     }
 
     public void getPermissions(View view) {
+        // Create String array for requested permissions
         String[] perms = new String[]{ Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE };
         if (EasyPermissions.hasPermissions(this, perms)) {
             // Yay, we have the permissions! Time for toast!
@@ -117,6 +120,7 @@ public class MainActivity extends AppCompatActivity {
 
             // Set all dangerous EXIF tags to null
             exif.setAttribute(ExifInterface.TAG_DATETIME, "");
+            // Check if Android version is greater than/equal to Android M - because API was added that Android version
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 exif.setAttribute(ExifInterface.TAG_DATETIME_DIGITIZED, "");
             }
