@@ -2,11 +2,13 @@ package org.openssf.exifremover;
 
 // Main android imports
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.media.ExifInterface;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
@@ -39,7 +41,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void getPermissions(View view) {
-        String[] perms = { Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE };
+        String[] perms = new String[0];
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {
+            perms = new String[]{ Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE };
+        }
         if (EasyPermissions.hasPermissions(this, perms)) {
             // Yay, we have the permissions! Time for toast!
             Toast.makeText(this, "Select an image.", Toast.LENGTH_SHORT).show();
@@ -115,45 +120,107 @@ public class MainActivity extends AppCompatActivity {
 
             // Set all dangerous EXIF tags to null
             exif.setAttribute(ExifInterface.TAG_DATETIME, "");
-            exif.setAttribute(ExifInterface.TAG_DATETIME_DIGITIZED, "");
-            exif.setAttribute(ExifInterface.TAG_DATETIME_ORIGINAL, "");
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                exif.setAttribute(ExifInterface.TAG_DATETIME_DIGITIZED, "");
+            }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                exif.setAttribute(ExifInterface.TAG_DATETIME_ORIGINAL, "");
+            }
             exif.setAttribute(ExifInterface.TAG_GPS_LATITUDE, "");
             exif.setAttribute(ExifInterface.TAG_GPS_LONGITUDE, "");
-            exif.setAttribute(ExifInterface.TAG_APERTURE_VALUE, "");
-            exif.setAttribute(ExifInterface.TAG_ARTIST, "");
-            exif.setAttribute(ExifInterface.TAG_COMPONENTS_CONFIGURATION, "");
-            exif.setAttribute(ExifInterface.TAG_COMPRESSION, "");
-            exif.setAttribute(ExifInterface.TAG_DEVICE_SETTING_DESCRIPTION, "");
-            exif.setAttribute(ExifInterface.TAG_EXPOSURE_BIAS_VALUE, "");
-            exif.setAttribute(ExifInterface.TAG_EXPOSURE_INDEX, "");
-            exif.setAttribute(ExifInterface.TAG_EXPOSURE_MODE, "");
-            exif.setAttribute(ExifInterface.TAG_EXPOSURE_PROGRAM, "");
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                exif.setAttribute(ExifInterface.TAG_APERTURE_VALUE, "");
+            }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                exif.setAttribute(ExifInterface.TAG_ARTIST, "");
+            }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                exif.setAttribute(ExifInterface.TAG_COMPONENTS_CONFIGURATION, "");
+            }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                exif.setAttribute(ExifInterface.TAG_COMPRESSION, "");
+            }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                exif.setAttribute(ExifInterface.TAG_DEVICE_SETTING_DESCRIPTION, "");
+            }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                exif.setAttribute(ExifInterface.TAG_EXPOSURE_BIAS_VALUE, "");
+            }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                exif.setAttribute(ExifInterface.TAG_EXPOSURE_INDEX, "");
+            }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                exif.setAttribute(ExifInterface.TAG_EXPOSURE_MODE, "");
+            }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                exif.setAttribute(ExifInterface.TAG_EXPOSURE_PROGRAM, "");
+            }
             exif.setAttribute(ExifInterface.TAG_EXPOSURE_TIME, "");
             exif.setAttribute(ExifInterface.TAG_GPS_ALTITUDE, "");
-            exif.setAttribute(ExifInterface.TAG_GPS_AREA_INFORMATION, "");
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                exif.setAttribute(ExifInterface.TAG_GPS_AREA_INFORMATION, "");
+            }
             exif.setAttribute(ExifInterface.TAG_GPS_ALTITUDE_REF, "");
             exif.setAttribute(ExifInterface.TAG_GPS_DATESTAMP, "");
-            exif.setAttribute(ExifInterface.TAG_GPS_DEST_BEARING, "");
-            exif.setAttribute(ExifInterface.TAG_GPS_DEST_BEARING_REF, "");
-            exif.setAttribute(ExifInterface.TAG_GPS_DEST_DISTANCE, "");
-            exif.setAttribute(ExifInterface.TAG_GPS_DEST_DISTANCE_REF, "");
-            exif.setAttribute(ExifInterface.TAG_GPS_DEST_LATITUDE, "");
-            exif.setAttribute(ExifInterface.TAG_GPS_DEST_LATITUDE_REF, "");
-            exif.setAttribute(ExifInterface.TAG_GPS_DIFFERENTIAL, "");
-            exif.setAttribute(ExifInterface.TAG_GPS_DOP, "");
-            exif.setAttribute(ExifInterface.TAG_GPS_VERSION_ID, "");
-            exif.setAttribute(ExifInterface.TAG_GPS_TRACK_REF, "");
-            exif.setAttribute(ExifInterface.TAG_GPS_TRACK, "");
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                exif.setAttribute(ExifInterface.TAG_GPS_DEST_BEARING, "");
+            }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                exif.setAttribute(ExifInterface.TAG_GPS_DEST_BEARING_REF, "");
+            }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                exif.setAttribute(ExifInterface.TAG_GPS_DEST_DISTANCE, "");
+            }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                exif.setAttribute(ExifInterface.TAG_GPS_DEST_DISTANCE_REF, "");
+            }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                exif.setAttribute(ExifInterface.TAG_GPS_DEST_LATITUDE, "");
+            }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                exif.setAttribute(ExifInterface.TAG_GPS_DEST_LATITUDE_REF, "");
+            }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                exif.setAttribute(ExifInterface.TAG_GPS_DIFFERENTIAL, "");
+            }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                exif.setAttribute(ExifInterface.TAG_GPS_DOP, "");
+            }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                exif.setAttribute(ExifInterface.TAG_GPS_VERSION_ID, "");
+            }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                exif.setAttribute(ExifInterface.TAG_GPS_TRACK_REF, "");
+            }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                exif.setAttribute(ExifInterface.TAG_GPS_TRACK, "");
+            }
             exif.setAttribute(ExifInterface.TAG_GPS_TIMESTAMP, "");
-            exif.setAttribute(ExifInterface.TAG_GPS_STATUS, "");
-            exif.setAttribute(ExifInterface.TAG_GPS_SPEED_REF, "");
-            exif.setAttribute(ExifInterface.TAG_GPS_SPEED, "");
-            exif.setAttribute(ExifInterface.TAG_GPS_SATELLITES, "");
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                exif.setAttribute(ExifInterface.TAG_GPS_STATUS, "");
+            }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                exif.setAttribute(ExifInterface.TAG_GPS_SPEED_REF, "");
+            }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                exif.setAttribute(ExifInterface.TAG_GPS_SPEED, "");
+            }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                exif.setAttribute(ExifInterface.TAG_GPS_SATELLITES, "");
+            }
             exif.setAttribute(ExifInterface.TAG_GPS_PROCESSING_METHOD, "");
-            exif.setAttribute(ExifInterface.TAG_GPS_MAP_DATUM, "");
-            exif.setAttribute(ExifInterface.TAG_GPS_IMG_DIRECTION_REF, "");
-            exif.setAttribute(ExifInterface.TAG_GPS_MEASURE_MODE, "");
-            exif.setAttribute(ExifInterface.TAG_SOFTWARE, "");
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                exif.setAttribute(ExifInterface.TAG_GPS_MAP_DATUM, "");
+            }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                exif.setAttribute(ExifInterface.TAG_GPS_IMG_DIRECTION_REF, "");
+            }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                exif.setAttribute(ExifInterface.TAG_GPS_MEASURE_MODE, "");
+            }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                exif.setAttribute(ExifInterface.TAG_SOFTWARE, "");
+            }
 
             // Write edited attributes back to file
             exif.saveAttributes();
@@ -166,6 +233,8 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    //TODO: Remove line 237 and change line 248 to use Android resources for translation. @IsaacGoodman
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // Execute code on intent result
@@ -182,7 +251,7 @@ public class MainActivity extends AppCompatActivity {
 
     private String getRealPathFromURIPath(Uri contentURI, Activity activity) {
         // Create new cursor
-        Cursor cursor = activity.getContentResolver().query(contentURI, null, null, null, null);
+        @SuppressLint("Recycle") Cursor cursor = activity.getContentResolver().query(contentURI, null, null, null, null);
         if (cursor == null) {
             // If cursor is empty, return path of URI file
             return contentURI.getPath();
