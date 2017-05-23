@@ -41,8 +41,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void getPermissions(View view) {
-        String[] perms = new String[0];
-        perms = new String[]{ Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE };
+        String[] perms = new String[]{ Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE };
         if (EasyPermissions.hasPermissions(this, perms)) {
             // Yay, we have the permissions! Time for toast!
             Toast.makeText(this, getString(R.string.select_image), Toast.LENGTH_SHORT).show();
