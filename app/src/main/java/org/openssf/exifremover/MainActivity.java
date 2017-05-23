@@ -45,11 +45,11 @@ public class MainActivity extends AppCompatActivity {
         perms = new String[]{ Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE };
         if (EasyPermissions.hasPermissions(this, perms)) {
             // Yay, we have the permissions! Time for toast!
-            Toast.makeText(this, "Select an image.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.select_image), Toast.LENGTH_SHORT).show();
             selectFile();
         } else {
             // No permissions.. waaaa!! Toast reminder
-            Toast.makeText(this, "These permissions are required", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.required_permissions), Toast.LENGTH_SHORT).show();
             // Then ask again
             ActivityCompat.requestPermissions(MainActivity.this,
                     perms, PERMISSIONS_MULTIPLE_REQUEST);
@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
         Intent pickIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         pickIntent.setType("image/*");
         // Create intent for choosing image
-        Intent chooserIntent = Intent.createChooser(getIntent, "Select Image");
+        Intent chooserIntent = Intent.createChooser(getIntent, getString(R.string.select_image));
         chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, new Intent[] {pickIntent});
         // Start intent
         startActivityForResult(chooserIntent, PICK_IMAGE);
@@ -73,10 +73,10 @@ public class MainActivity extends AppCompatActivity {
     public void buttonRemoveEXIF(View view) {
         if(imageUri == null) {
             // Ask to select image before removing EXIF
-            Toast.makeText(this, "Please select an image", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.select_image), Toast.LENGTH_SHORT).show();
         } else {
             // Tell the user EXIF removal and compression has started
-            Toast.makeText(this, "Removing..", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.removing), Toast.LENGTH_SHORT).show();
             // Generate filepath from URI of image
             String filepath = getRealPathFromURIPath(imageUri, this);
             if(filepath.endsWith("jpg")) {
@@ -106,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
             } else if(filepath.endsWith("jpeg")) {
                 removeEXIF(filepath);
             } else {
-                Toast.makeText(this, "Only JPG/JPEG files are currently supported", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getString(R.string.file_support), Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -224,15 +224,13 @@ public class MainActivity extends AppCompatActivity {
             exif.saveAttributes();
 
             // Tell user it's done
-            Toast.makeText(this, "Done!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.done), Toast.LENGTH_SHORT).show();
         } catch (IOException e) {
             // Warn about error and give error code. See wiki for complete error code list.
             Toast.makeText(this, "IOException, [Code " + IOExceptionCode + "]", Toast.LENGTH_SHORT).show();
         }
     }
 
-    //TODO: Remove line 237 and change line 248 to use Android resources for translation. @IsaacGoodman
-    @SuppressLint("SetTextI18n")
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // Execute code on intent result
@@ -243,7 +241,7 @@ public class MainActivity extends AppCompatActivity {
             // Initialize header TextView for editing
             TextView header = (TextView)findViewById(R.id.header);
             // Change text when ready to remove EXIF
-            header.setText("Ready to remove EXIF");
+            header.setText(getString(R.string.ready_to_remove));
         }
     }
 
