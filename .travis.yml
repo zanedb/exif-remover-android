@@ -1,8 +1,6 @@
 language: android
 jdk: oraclejdk8
 sudo: false
-before_install:
-  - chmod +x gradlew
 env:
   global:
    - ANDROID_API_LEVEL=25
