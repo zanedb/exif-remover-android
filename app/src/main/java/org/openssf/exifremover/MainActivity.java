@@ -2,7 +2,6 @@ package org.openssf.exifremover;
 
 // Main android imports
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
@@ -116,12 +115,12 @@ public class MainActivity extends AppCompatActivity {
     public void removeEXIF(String filepath) {
         try {
 
-            /**
-             *  EXIF-Remover ENGINE
-             *  WHERE ALL THE EXIF DATA IS REMOVED
-             *  AN @openssf (https://www.openssf.org) PROJECT
-             *  WRITTEN BY @zanedb AND @isaacgoodman ON GitHub
-             *  VIEWABLE AT https://github.com/openssf/exif-remover-android
+            /*
+               EXIF-Remover ENGINE
+               WHERE ALL THE EXIF DATA IS REMOVED
+               AN @openssf (https://www.openssf.org) PROJECT
+               WRITTEN BY @zanedb AND @isaacgoodman ON GitHub
+               VIEWABLE AT https://github.com/openssf/exif-remover-android
              */
 
             // Create new ExifInterface for managing EXIF tags
@@ -135,6 +134,7 @@ public class MainActivity extends AppCompatActivity {
             // Check if Android version is greater than/equal to Android N - because these tags were added in N
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 // Set dangerous EXIF tags to null
+                exif.setAttribute(ExifInterface.TAG_SOFTWARE, "");
                 exif.setAttribute(ExifInterface.TAG_DATETIME_ORIGINAL, "");
                 exif.setAttribute(ExifInterface.TAG_APERTURE_VALUE, "");
                 exif.setAttribute(ExifInterface.TAG_ARTIST, "");
@@ -175,7 +175,6 @@ public class MainActivity extends AppCompatActivity {
             exif.setAttribute(ExifInterface.TAG_GPS_DATESTAMP, "");
             exif.setAttribute(ExifInterface.TAG_GPS_TIMESTAMP, "");
             exif.setAttribute(ExifInterface.TAG_GPS_PROCESSING_METHOD, "");
-            exif.setAttribute(ExifInterface.TAG_SOFTWARE, "");
 
             // Write edited attributes back to file
             exif.saveAttributes();
@@ -204,7 +203,7 @@ public class MainActivity extends AppCompatActivity {
 
     private String getRealPathFromURIPath(Uri contentURI, Activity activity) {
         // Create new cursor
-        @SuppressLint("Recycle") Cursor cursor = activity.getContentResolver().query(contentURI, null, null, null, null);
+        Cursor cursor = activity.getContentResolver().query(contentURI, null, null, null, null);
         if (cursor == null) {
             // If cursor is empty, return path of URI file
             return contentURI.getPath();
