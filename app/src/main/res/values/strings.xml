@@ -6,7 +6,8 @@
     <string name="select_image">Select image</string>
     <string name="required_permissions">These permissions are required</string>
     <string name="removing">Removing</string>
+    <string name="rename_failure">File Rename Failed</string>
     <string name="file_support">Only JPG/JPEG files are currently supported</string>
-    <string name="done">Done</string>
+    <string name="done">Done!</string>
     <string name="ready_to_remove">Ready to remove EXIF</string>
 </resources>

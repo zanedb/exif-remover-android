@@ -103,10 +103,14 @@ public class MainActivity extends AppCompatActivity {
                 if(rename) {
                     // Call function to remove EXIF data
                     removeEXIF(newfilepath);
+                } else {
+                    Toast.makeText(this, getString(R.string.rename_failure), Toast.LENGTH_SHORT).show();
                 }
             } else if(filepath.endsWith("jpeg")) {
+                // Send file to EXIF-Remover engine
                 removeEXIF(filepath);
             } else {
+                // Send message detailing file support
                 Toast.makeText(this, getString(R.string.file_support), Toast.LENGTH_SHORT).show();
             }
         }
